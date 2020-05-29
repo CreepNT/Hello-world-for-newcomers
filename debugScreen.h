@@ -40,12 +40,14 @@ static uint32_t psvDebugScreenColorBg = COLOR_DEFAULT_BG;
 static SceDisplayFrameBuf psvDebugScreenFrameBuf = {
 		sizeof(SceDisplayFrameBuf), NULL, SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
+/* Set the color of the foreground (text) */
 uint32_t psvDebugScreenSetFgColor(uint32_t color) {
 	uint32_t prev_color = psvDebugScreenColorFg;
 	psvDebugScreenColorFg = color;
 	return prev_color;
 }
 
+/* Set the color of the background*/
 uint32_t psvDebugScreenSetBgColor(uint32_t color) {
 	uint32_t prev_color = psvDebugScreenColorBg;
 	psvDebugScreenColorBg = color;
@@ -81,6 +83,7 @@ static size_t psvDebugScreenEscape(const char *str){
 	return i;
 }
 
+/*Initializes the psvDebugScreen library. Run this before any other function*/
 int psvDebugScreenInit() {
 	psvDebugScreenMutex = sceKernelCreateMutex("log_mutex", 0, 0, NULL);
 	SceUID displayblock = sceKernelAllocMemBlock("display", SCE_KERNEL_MEMBLOCK_TYPE_USER_CDRAM_RW, SCREEN_FB_SIZE, NULL);
@@ -98,6 +101,7 @@ int psvDebugScreenInit() {
 	return sceDisplaySetFrameBuf(&framebuf, SCE_DISPLAY_SETBUF_NEXTFRAME);
 }
 
+/* Clears the screen*/
 void psvDebugScreenClear(int bg_color){
 	psvDebugScreenCoordX = psvDebugScreenCoordY = 0;
 	int i;
@@ -160,6 +164,7 @@ int psvDebugScreenPuts(const char * text){
 	return c;
 }
 
+/* printf to the screen */
 int psvDebugScreenPrintf(const char *format, ...) {
 	char buf[512];
 
