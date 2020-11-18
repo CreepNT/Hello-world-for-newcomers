@@ -47,7 +47,7 @@ target_link_libraries(${PROJECT_NAME}
 	SceCtrl_stub
 	SceTouch_stub
 	SceLibKernel_stub
-  	SceDisplay_stub
+  SceDisplayUser_stub
 	SceAppMgr_stub
 	taihen_stub
 )
